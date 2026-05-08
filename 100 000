@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100 000 FCFA/mois Sans Pub — Système Fahaldine</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #1a5fb4;
+    --primary-light: #3584e4;
+    --primary-dark: #0d3b7a;
+    --accent: #e66100;
+    --accent-light: #ff7800;
+    --bg: #ffffff;
+    --bg-soft: #f6f8fc;
+    --bg-card: #ffffff;
+    --text: #1a1a2e;
+    --text-secondary: #4a4a5a;
+    --text-muted: #7a7a8a;
+    --border: #e2e6ef;
+    --border-light: #f0f2f7;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
+    --shadow-accent: 0 4px 20px rgba(26,95,180,0.15);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ========== ANIMATIONS ========== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .anim-fade-up {
+    opacity: 0;
+    animation: fadeInUp 0.7s ease forwards;
+  }
+
+  .anim-fade {
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  .anim-slide-left {
+    opacity: 0;
+    animation: slideInLeft 0.7s ease forwards;
+  }
+
+  .anim-slide-right {
+    opacity: 0;
+    animation: slideInRight 0.7s ease forwards;
+  }
+
+  .anim-scale {
+    opacity: 0;
+    animation: scaleIn 0.6s ease forwards;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+  .delay-6 { animation-delay: 0.6s; }
+
+  /* ========== STICKY HEADER ========== */
+  .sticky-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+  }
+
+  .sticky-header.scrolled {
+    box-shadow: var(--shadow-md);
+    padding: 10px 24px;
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .header-brand:hover {
+    color: var(--primary);
+    transform: translateY(-1px);
+  }
+
+  .header-brand .emoji {
+    font-size: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .header-nav {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .header-nav a {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    width: 0; height: 2px;
+    background: var(--primary);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  .header-nav a:hover {
+    color: var(--primary);
+    background: var(--bg-soft);
+    transform: translateY(-2px);
+  }
+
+  .header-nav a:hover::after {
+    width: 60%;
+  }
+
+  .header-cta {
+    background: var(--primary);
+    color: white !important;
+    font-weight: 700;
+    padding: 10px 20px !important;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-accent);
+  }
+
+  .header-cta:hover {
+    background: var(--primary-dark) !important;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 24px rgba(26,95,180,0.25);
+  }
+
+  .header-cta::after { display: none !important; }
+
+  @media (max-width: 768px) {
+    .header-nav { display: none; }
+    .sticky-header { justify-content: center; }
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 24px 80px;
+    position: relative;
+    background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 60%);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at 30% 20%, rgba(26,95,180,0.06) 0%, transparent 50%),
+                 radial-gradient(ellipse at 70% 80%, rgba(230,97,0,0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border-radius: 50px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow-sm);
+    animation: fadeIn 0.8s ease both, float 4s ease-in-out infinite 1s;
+  }
+
+  .hero-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+    color: var(--text);
+    max-width: 900px;
+  }
+
+  .hero-title .highlight {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+  }
+
+  .hero-title .sub {
+    font-size: 0.45em;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    display: block;
+    margin-top: 12px;
+    line-height: 1.4;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(18px, 2.2vw, 24px);
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: 28px;
+    max-width: 600px;
+  }
+
+  .hero-desc {
+    max-width: 620px;
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 44px;
+  }
+
+  .cta-main {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 18px 40px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: var(--shadow-accent);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-main::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+
+  .cta-main:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 48px rgba(26,95,180,0.3);
+  }
+
+  .cta-main:active {
+    transform: translateY(-1px) scale(0.98);
+  }
+
+  .hero-price-tag {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .hero-price-tag strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-stat {
+    text-align: center;
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  .hero-stat-num {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ========== SECTIONS ========== */
+  section { padding: 100px 24px; position: relative; }
+
+  .container { max-width: 800px; margin: 0 auto; }
+  .container-wide { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 20px;
+    padding: 6px 14px;
+    background: rgba(26,95,180,0.08);
+    border-radius: 50px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+
+  .section-title em {
+    font-style: normal;
+    color: var(--primary);
+    position: relative;
+  }
+
+  .section-title em::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 0; right: 0;
+    height: 8px;
+    background: rgba(26,95,180,0.12);
+    border-radius: 4px;
+    z-index: -1;
+  }
+
+  .section-desc {
+    font-size: 17px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  /* ========== PAIN SECTION ========== */
+  .pain {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pain-question {
+    font-size: 18px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin: 24px 0 32px;
+    padding: 16px 24px;
+    background: white;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    box-shadow: var(--shadow-sm);
+    animation: slideInLeft 0.6s ease both 0.3s;
+  }
+
+  .pain-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .pain-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    background: white;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    color: var(--text-secondary);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease both;
+  }
+
+  .pain-list li:nth-child(1) { animation-delay: 0.1s; }
+  .pain-list li:nth-child(2) { animation-delay: 0.2s; }
+  .pain-list li:nth-child(3) { animation-delay: 0.3s; }
+  .pain-list li:nth-child(4) { animation-delay: 0.4s; }
+  .pain-list li:nth-child(5) { animation-delay: 0.5s; }
+  .pain-list li:nth-child(6) { animation-delay: 0.6s; }
+
+  .pain-list li:hover {
+    transform: translateX(6px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border);
+  }
+
+  .pain-list li::before {
+    content: '✗';
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(230,97,0,0.08);
+    border-radius: 50%;
+  }
+
+  /* ========== PROMISE ========== */
+  .promise {
+    text-align: center;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  }
+
+  .big-quote {
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text);
+    max-width: 800px;
+    margin: 0 auto 32px;
+    position: relative;
+    padding: 0 20px;
+  }
+
+  .big-quote::before {
+    content: '"';
+    position: absolute;
+    top: -40px;
+    left: -10px;
+    font-size: 120px;
+    color: rgba(26,95,180,0.08);
+    font-weight: 900;
+    line-height: 1;
+    font-family: Georgia, serif;
+  }
+
+  .quote-author {
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ========== WHAT IS ========== */
+  .what-is { background: var(--bg); }
+
+  .what-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 52px;
+  }
+
+  @media (max-width: 900px) {
+    .what-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .what-grid { grid-template-columns: 1fr; }
+  }
+
+  .what-card {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  .what-card:nth-child(1) { animation-delay: 0.1s; }
+  .what-card:nth-child(2) { animation-delay: 0.2s; }
+  .what-card:nth-child(3) { animation-delay: 0.3s; }
+  .what-card:nth-child(4) { animation-delay: 0.4s; }
+  .what-card:nth-child(5) { animation-delay: 0.5s; }
+  .what-card:nth-child(6) { animation-delay: 0.6s; }
+
+  .what-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+
+  .what-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+  }
+
+  .what-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .what-card .icon {
+    font-size: 36px;
+    margin-bottom: 20px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .what-card:hover .icon {
+    transform: scale(1.15) rotate(-5deg);
+  }
+
+  .what-card h3 {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .what-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ========== CHAPTERS ========== */
+  .chapters { background: var(--bg-soft); }
+
+  .chapter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 52px;
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+  }
+
+  .chapter-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    animation: fadeInUp 0.5s ease both;
+  }
+
+  .chapter-item:nth-child(1) { animation-delay: 0.05s; }
+  .chapter-item:nth-child(2) { animation-delay: 0.1s; }
+  .chapter-item:nth-child(3) { animation-delay: 0.15s; }
+  .chapter-item:nth-child(4) { animation-delay: 0.2s; }
+  .chapter-item:nth-child(5) { animation-delay: 0.25s; }
+  .chapter-item:nth-child(6) { animation-delay: 0.3s; }
+  .chapter-item:nth-child(7) { animation-delay: 0.35s; }
+
+  .chapter-item:last-child { border-bottom: none; }
+
+  .chapter-item:hover {
+    background: var(--bg-soft);
+    padding-left: 40px;
+  }
+
+  .chapter-num {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 48px;
+    opacity: 0.3;
+    transition: all 0.3s ease;
+  }
+
+  .chapter-item:hover .chapter-num {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .chapter-content h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    transition: color 0.3s ease;
+  }
+
+  .chapter-item:hover .chapter-content h4 {
+    color: var(--primary);
+  }
+
+  .chapter-content p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ========== FOR WHO ========== */
+  .for-who { background: var(--bg); }
+
+  .who-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 52px;
+  }
+
+  @media (max-width: 700px) {
+    .who-grid { grid-template-columns: 1fr; }
+  }
+
+  .who-yes, .who-no {
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    transition: all 0.3s ease;
+  }
+
+  .who-yes {
+    background: linear-gradient(135deg, rgba(26,95,180,0.04), rgba(26,95,180,0.02));
+    border: 2px solid rgba(26,95,180,0.15);
+  }
+
+  .who-no {
+    background: linear-gradient(135deg, rgba(230,97,0,0.03), rgba(230,97,0,0.01));
+    border: 2px solid rgba(230,97,0,0.1);
+  }
+
+  .who-yes:hover, .who-no:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .who-yes h3 {
+    color: var(--primary);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    font-weight: 800;
+  }
+
+  .who-no h3 {
+    color: var(--accent);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    font-weight: 800;
+  }
+
+  .who-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .who-list li {
+    font-size: 15px;
+    color: var(--text-secondary);
+    padding-left: 28px;
+    position: relative;
+    line-height: 1.5;
+    transition: all 0.2s ease;
+  }
+
+  .who-list li:hover {
+    transform: translateX(4px);
+  }
+
+  .who-yes .who-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 800;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26,95,180,0.1);
+    border-radius: 50%;
+    font-size: 11px;
+  }
+
+  .who-no .who-list li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 800;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(230,97,0,0.1);
+    border-radius: 50%;
+    font-size: 11px;
+  }
+
+  /* ========== AUTHOR ========== */
+  .author {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .author-inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  @media (max-width: 700px) {
+    .author-inner { grid-template-columns: 1fr; text-align: center; }
+    .author-stats { justify-content: center; }
+  }
+
+  .author-avatar {
+    width: 140px;
+    height: 140px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 64px;
+    box-shadow: var(--shadow-accent);
+    animation: float 4s ease-in-out infinite;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 3px solid var(--border);
+    transition: all 0.3s ease;
+  }
+
+  .author-avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 32px rgba(26,95,180,0.3);
+    border-color: var(--primary);
+  }
+
+  .author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .author-name {
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 4px;
+    letter-spacing: -1px;
+  }
+
+  .author-title {
+    color: var(--primary);
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  .author-bio {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  .author-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: left;
+    transition: transform 0.3s ease;
+  }
+
+  .stat:hover {
+    transform: translateY(-4px);
+  }
+
+  .stat-num {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ========== OBJECTIONS ========== */
+  .objections { background: var(--bg); }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 52px;
+  }
+
+  .faq-item {
+    background: var(--bg-card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.5s ease both;
+  }
+
+  .faq-item:nth-child(1) { animation-delay: 0.05s; }
+  .faq-item:nth-child(2) { animation-delay: 0.1s; }
+  .faq-item:nth-child(3) { animation-delay: 0.15s; }
+  .faq-item:nth-child(4) { animation-delay: 0.2s; }
+  .faq-item:nth-child(5) { animation-delay: 0.25s; }
+
+  .faq-item:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  .faq-item h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .faq-item h4::before {
+    content: '❓';
+    font-size: 18px;
+  }
+
+  .faq-item p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    padding-left: 28px;
+  }
+
+  /* ========== PRICING ========== */
+  .pricing {
+    background: linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pricing::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(26,95,180,0.06) 0%, transparent 70%);
+  }
+
+  .price-box {
+    background: white;
+    border: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 56px 48px;
+    max-width: 520px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    animation: scaleIn 0.6s ease both;
+  }
+
+  .price-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 16px rgba(230,97,0,0.3);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .price-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    color: var(--text);
+  }
+
+  .price-amount {
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+    letter-spacing: -3px;
+  }
+
+  .price-currency {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    font-weight: 500;
+  }
+
+  .price-includes {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .price-includes li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding-left: 28px;
+    position: relative;
+    font-weight: 500;
+  }
+
+  .price-includes li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 800;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26,95,180,0.1);
+    border-radius: 50%;
+    font-size: 11px;
+  }
+
+  .price-compare {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    line-height: 1.7;
+    padding: 16px;
+    background: var(--bg-soft);
+    border-radius: var(--radius-sm);
+  }
+
+  .price-compare strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .cta-buy {
+    display: block;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    font-weight: 800;
+    font-size: 17px;
+    padding: 20px 40px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: var(--shadow-accent);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-buy::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+
+  .cta-buy:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 48px rgba(26,95,180,0.3);
+  }
+
+  .cta-buy:active {
+    transform: translateY(-1px) scale(0.98);
+  }
+
+  .cta-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    font-weight: 500;
+  }
+
+  /* ========== URGENCY ========== */
+  .urgency {
+    background: linear-gradient(135deg, rgba(230,97,0,0.06), rgba(230,97,0,0.02));
+    border-top: 2px solid rgba(230,97,0,0.15);
+    border-bottom: 2px solid rgba(230,97,0,0.15);
+    padding: 40px 24px;
+    text-align: center;
+  }
+
+  .urgency p {
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 500;
+    line-height: 1.7;
+  }
+
+  .urgency strong {
+    color: var(--accent);
+    font-weight: 800;
+  }
+
+  /* ========== FINAL CTA ========== */
+  .final-cta {
+    background: var(--bg);
+    text-align: center;
+    padding: 120px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .final-cta .section-title { margin-bottom: 20px; }
+
+  .final-cta p {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  footer a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+  }
+
+  /* ========== SCROLL REVEAL ========== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== STICKY BAR BOTTOM ========== */
+  .sticky-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    z-index: 500;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+  }
+
+  .sticky-bar.show {
+    transform: translateY(0);
+  }
+
+  .sticky-bar p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    flex: 1;
+    font-weight: 500;
+  }
+
+  .sticky-bar strong {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .sticky-cta {
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 28px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-accent);
+  }
+
+  .sticky-cta:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(26,95,180,0.25);
+  }
+
+  @media (max-width: 480px) {
+    .sticky-bar { flex-direction: column; text-align: center; padding: 12px 16px; }
+    .sticky-cta { width: 100%; text-align: center; }
+    .price-box { padding: 40px 24px; }
+    .price-amount { font-size: 56px; }
+    .chapter-item { padding: 20px; gap: 16px; }
+    .hero-stats { gap: 24px; }
+  }
+
+  /* ========== SMOOTH SCROLL OFFSET ========== */
+  html {
+    scroll-padding-top: 80px;
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY HEADER -->
+<header class="sticky-header" id="stickyHeader">
+  <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="header-brand anim-fade">
+    <span class="emoji">🐆</span>
+    <span>Vente sans publicité</span>
+  </a>
+  <nav class="header-nav">
+    <a href="#probleme">Le Problème</a>
+    <a href="#solution">La Solution</a>
+    <a href="#contenu">Contenu</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="header-cta">Obtenir l ebook →</a>
+  </nav>
+</header>
+
+<!-- STICKY BAR BOTTOM -->
+<div class="sticky-bar" id="stickyBar">
+  <p>📖 <strong>100 000 FCFA/mois sans pub</strong> — Le système organique complet</p>
+  <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="sticky-cta">Obtenir l ebook →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge anim-fade-up delay-1">
+    <span class="dot"></span>
+    Système Fahaldine
+  </div>
+
+  <h1 class="hero-title anim-fade-up delay-2">
+    <span class="highlight">100 000 FCFA</span><br>
+    par mois
+    <span class="sub">sans dépenser 1 FCFA en publicité</span>
+  </h1>
+
+  <p class="hero-subtitle anim-fade-up delay-3">
+    Le Système Organique pour Vendre ton Produit Digital
+  </p>
+
+  <p class="hero-desc anim-fade-up delay-4">
+    Un ebook. Une méthode. Des résultats réels. Découvre comment générer des revenus constants avec ton produit digital en utilisant uniquement le trafic organique — sans budget pub, sans algorithme payant, sans épuisement.
+  </p>
+
+  <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="cta-main anim-fade-up delay-5">
+    Je veux le système complet →
+  </a>
+
+  <p class="hero-price-tag anim-fade-up delay-6">
+    Accès immédiat · <strong>5 000 FCFA</strong> · Moins qu un t-shirt
+  </p>
+
+  <div class="hero-stats">
+    <div class="hero-stat delay-3">
+      <div class="hero-stat-num">7</div>
+      <div class="hero-stat-label">Chapitres</div>
+    </div>
+    <div class="hero-stat delay-4">
+      <div class="hero-stat-num">30</div>
+      <div class="hero-stat-label">Jours de plan</div>
+    </div>
+    <div class="hero-stat delay-5">
+      <div class="hero-stat-num">0 FCFA</div>
+      <div class="hero-stat-label">En publicité</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="pain" id="probleme">
+  <div class="container reveal">
+    <p class="section-label">Le problème</p>
+    <h2 class="section-title">Tu as un produit.<br>Mais <em>personne ne l achète.</em></h2>
+    <p class="section-desc">
+      Tu postes. Tu partages. Tu envoies des messages. Et à la fin du mois, les chiffres ne suivent pas.
+    </p>
+    <div class="pain-question">
+      🎯 <strong>Ces situations te parlent ?</strong>
+    </div>
+    <ul class="pain-list">
+      <li>Tu publies du contenu régulièrement mais les ventes n arrivent pas</li>
+      <li>Tu as essayé la pub Facebook, tu as perdu de l argent sans résultats</li>
+      <li>Tu envoies des messages à tes contacts, beaucoup ne répondent même plus</li>
+      <li>Tu vois d autres vendre des ebooks pendant que le tien dort dans ton téléphone</li>
+      <li>Tu ne sais pas quel canal utiliser, quelle stratégie appliquer, quel message envoyer</li>
+      <li>Tu travailles dur mais tu n as pas de système reproductible qui tourne seul</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise">
+  <div class="container reveal">
+    <p class="big-quote">
+      Ce n est pas ton produit qui est mauvais. C est ton système de vente qui est inexistant. Un bon système organique vend 24h/24 — pendant que tu dors.
+    </p>
+    <p class="quote-author">— Fahaldine 🐆</p>
+  </div>
+</section>
+
+<!-- WHAT IS -->
+<section class="what-is" id="solution">
+  <div class="container-wide reveal">
+    <p class="section-label" style="text-align:center; margin: 0 auto 20px; display: flex; justify-content: center;">Ce que tu vas recevoir</p>
+    <h2 class="section-title" style="text-align:center">Un système complet,<br><em>pas des conseils vagues</em></h2>
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="icon">🗺️</div>
+        <h3>La Feuille de Route Organique</h3>
+        <p>Chaque étape, dans l ordre, pour construire un flux de ventes régulier sans publicité payante.</p>
+      </div>
+      <div class="what-card">
+        <div class="icon">🎯</div>
+        <h3>Les Canaux Qui Convertissent</h3>
+        <p>WhatsApp, Telegram, groupes Facebook, TikTok organique — lesquels utiliser, comment et dans quel ordre.</p>
+      </div>
+      <div class="what-card">
+        <div class="icon">✍️</div>
+        <h3>Les Messages Qui Vendent</h3>
+        <p>Des scripts de vente prêts à copier-coller. Accroche, offre, CTA. Optimisés pour le marché africain.</p>
+      </div>
+      <div class="what-card">
+        <div class="icon">🔁</div>
+        <h3>Le Système de Relance</h3>
+        <p>Comment suivre les prospects sans être lourd. Comment transformer un "je verrai" en vente concrète.</p>
+      </div>
+      <div class="what-card">
+        <div class="icon">📈</div>
+        <h3>La Méthode des 100K/mois</h3>
+        <p>Les maths réels : combien de prospects, combien de conversions, combien de posts pour atteindre 100 000 FCFA.</p>
+      </div>
+      <div class="what-card">
+        <div class="icon">🤖</div>
+        <h3>L Automatisation Simple</h3>
+        <p>Comment utiliser des outils gratuits et l IA pour automatiser une partie du processus sans budget.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTERS -->
+<section class="chapters" id="contenu">
+  <div class="container reveal">
+    <p class="section-label">Contenu détaillé</p>
+    <h2 class="section-title">Ce que tu lis,<br><em>chapitre par chapitre</em></h2>
+    <div class="chapter-list">
+      <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="chapter-item">
+        <div class="chapter-num">01</div>
+        <div class="chapter-content">
+          <h4>Pourquoi 90% des vendeurs de produits digitaux échouent</h4>
+          <p>L erreur de base que tout le monde fait. Le mythe de la pub payante. Ce que font vraiment ceux qui vendent chaque jour.</p>
+        </div>
+      </a>
+      <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="chapter-item">
+        <div class="chapter-num">02</div>
+        <div class="chapter-content">
+          <h4>Construire ta base organique en 30 jours</h4>
+          <p>Les actions quotidiennes concrètes pour construire une audience chaude sans dépenser un franc. Le plan jour par jour.</p>
+        </div>
+      </a>
+      <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="chapter-item">
+        <div class="chapter-num">03</div>
+        <div class="chapter-content">
+          <h4>Le contenu qui attire et qui vend</h4>
+          <p>Quelle différence entre le contenu de "notoriété" et le contenu de "vente". Comment publier pour convertir, pas juste pour les likes.</p>
+        </div>
+      </a>
+      <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="chapter-item">
+        <div class="chapter-num">04</div>
+        <div class="chapter-content">
+          <h4>Les scripts WhatsApp et Messenger qui ferment les ventes</h4>
+          <p>Mot pour mot. La conversation type qui transforme un inconnu en acheteur. Les réponses aux objections les plus fréquentes.</p>
+        </div>
+      </a>
+      <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="chapter-item">
+        <div class="chapter-num">05</div>
+        <div class="chapter-content">
+          <h4>Le système de relance sans paraître désespéré</h4>
+          <p>Comment relancer 3, 5, 7 fois sans perdre la relation. Le bon ton, le bon timing, les bons mots.</p>
+        </div>
+      </a>
+      <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="chapter-item">
+        <div class="chapter-num">06</div>
+        <div class="chapter-content">
+          <h4>Atteindre 100 000 FCFA : les vrais chiffres</h4>
+          <p>Le calcul exact. Combien de prospects par jour, quel taux de conversion, quel prix de produit. Plusieurs scénarios réalistes.</p>
+        </div>
+      </a>
+      <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="chapter-item">
+        <div class="chapter-num">07</div>
+        <div class="chapter-content">
+          <h4>Automatiser et scaler sans budget</h4>
+          <p>Les outils gratuits. L IA pour te démultiplier. Comment passer de 100K à 300K sans travailler 3 fois plus.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="for-who">
+  <div class="container reveal">
+    <p class="section-label" style="text-align:center; margin: 0 auto 20px; display: flex; justify-content: center;">Clarté totale</p>
+    <h2 class="section-title" style="text-align:center">Cet ebook est fait pour toi.<br><em>Ou pas.</em></h2>
+    <div class="who-grid">
+      <div class="who-yes">
+        <h3>✓ C est pour toi si</h3>
+        <ul class="who-list">
+          <li>Tu as déjà un produit digital ou tu veux en créer un</li>
+          <li>Tu veux des revenus en ligne sans dépendre des pubs</li>
+          <li>Tu es prêt à appliquer pendant 30 jours minimum</li>
+          <li>Tu veux un système, pas juste des "conseils"</li>
+          <li>Tu vends en Afrique ou à la diaspora africaine</li>
+          <li>Tu as peu de budget mais beaucoup de motivation</li>
+        </ul>
+      </div>
+      <div class="who-no">
+        <h3>✗ Ce n est pas pour toi si</h3>
+        <ul class="who-list">
+          <li>Tu cherches un système magique sans effort</li>
+          <li>Tu veux des résultats en 48h sans rien faire</li>
+          <li>Tu n as pas du tout de produit et tu refuses d en créer un</li>
+          <li>Tu ne veux pas appliquer, juste lire</li>
+          <li>Tu penses que les produits digitaux ne marchent pas en Afrique</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section class="author">
+  <div class="container reveal">
+    <div class="author-inner">
+      <div class="author-avatar">
+        <img src="https://www.musicinafrica.net/sites/default/files/images/user/202307/a786564a-737f-4aa0-99ef-aa56f9a5a6ad.jpeg" alt="Fahaldine">
+      </div>
+      <div>
+        <p class="section-label">L auteur</p>
+        <h2 class="author-name">Fahaldine</h2>
+        <p class="author-title">Stratège Business & IA · Le Guépard</p>
+        <p class="author-bio">
+          Basé à Parakou, Bénin. J ai écrit 17 livres sur le business, la vente et l IA. J accompagne des entrepreneurs, e-commerçants et freelances à générer des revenus en ligne avec des systèmes simples et efficaces. Je crée des agents IA sur mesure. Je ne vends pas du rêve. Je vends des méthodes que j applique moi-même chaque jour.
+        </p>
+        <div class="author-stats">
+          <div class="stat">
+            <div class="stat-num">17</div>
+            <div class="stat-label">Livres publiés</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Organique</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">0 FCFA</div>
+            <div class="stat-label">En pub</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIONS -->
+<section class="objections" id="faq">
+  <div class="container reveal">
+    <p class="section-label">Questions fréquentes</p>
+    <h2 class="section-title">Tu as des doutes.<br><em>Voici les réponses.</em></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h4>Je n ai pas encore de produit digital à vendre.</h4>
+        <p>L ebook contient une section sur comment créer rapidement ton premier produit digital. Un ebook, un template, un guide PDF. En 48h tu peux avoir quelque chose à vendre. La méthode s applique immédiatement après.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Le marché africain n achète pas en ligne.</h4>
+        <p>C est faux. Des centaines de vendeurs en Afrique de l Ouest et en diaspora font des revenus solides avec des produits digitaux. La question n est pas si le marché achète — c est comment tu lui présentes ton offre. Ce système répond exactement à ça.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Est-ce que 5 000 FCFA c est vraiment utile ? C est pas trop peu ?</h4>
+        <p>J aurais pu le vendre 25 000 FCFA. Le contenu le justifie. Mais mon objectif c est que tu l appliques, pas que tu hésites à cause du prix. 5 000 FCFA. Une seule vente de ton produit et tu as déjà rentabilisé 10 fois.</p>
+      </div>
+      <div class="faq-item">
+        <h4>En combien de temps je verrai des résultats ?</h4>
+        <p>Les premiers résultats apparaissent en 7 à 14 jours si tu appliques les scripts et les canaux recommandés. Les 100 000 FCFA/mois demandent généralement 30 à 60 jours de mise en place du système. Rien de magique, mais rien d irréaliste non plus.</p>
+      </div>
+      <div class="faq-item">
+        <h4>J ai déjà lu beaucoup d ebooks. Pourquoi celui-là serait différent ?</h4>
+        <p>Parce que la plupart des ebooks donnent des principes généraux. Celui-ci donne des scripts, des chiffres exacts, des plans jour par jour, des canaux précis adaptés au marché africain. Ce n est pas de la théorie. C est ce que j applique.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="container reveal">
+    <p class="section-label" style="text-align:center; margin: 0 auto 20px; display: flex; justify-content: center;">L offre</p>
+    <h2 class="section-title" style="text-align:center">Tout ce système.<br><em>Pour moins qu un t-shirt.</em></h2>
+    <div class="price-box">
+      <div class="price-badge">OFFRE SPÉCIALE</div>
+      <p class="price-title">100 000 FCFA/mois sans publicité</p>
+      <div class="price-amount">5 000</div>
+      <p class="price-currency">FCFA · Accès immédiat et permanent</p>
+      <ul class="price-includes">
+        <li>L ebook complet (7 chapitres, méthode complète)</li>
+        <li>Les scripts WhatsApp et Messenger prêts à copier</li>
+        <li>Le plan 30 jours pour les 100K/mois</li>
+        <li>Les calculs et scénarios de vente réalistes</li>
+        <li>Les outils gratuits recommandés + usage de l IA</li>
+        <li>Téléchargement immédiat après paiement</li>
+      </ul>
+      <p class="price-compare">
+        5 000 FCFA. <strong>Moins qu un maillot de foot.</strong> Moins qu un repas au restaurant. Moins qu une recharge mobile mensuelle. Une seule vente de ton produit le rembourse immédiatement.
+      </p>
+      <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="cta-buy">Je prends l ebook maintenant →</a>
+      <p class="cta-sub">Paiement sécurisé · Accès instantané · Aucun abonnement</p>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<div class="urgency">
+  <p>⚡ <strong>Chaque jour sans système est un jour de revenus perdus.</strong> Les ventes ne viennent pas à ceux qui attendent. Elles viennent à ceux qui installent un système et le font tourner. Le tien commence aujourd hui.</p>
+</div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container reveal">
+    <p class="section-label" style="margin: 0 auto 20px; display: flex; justify-content: center;">Dernière chance</p>
+    <h2 class="section-title">Tu as un produit.<br><em>Donne-lui un système.</em></h2>
+    <p>Dans 30 jours, tu peux regarder tes revenus et voir une différence réelle. Ou dans 30 jours, tu peux être exactement où tu es aujourd hui. La décision se prend maintenant.</p>
+    <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout" class="cta-main">Obtenir le système complet →</a>
+    <p style="margin-top: 20px; font-size: 14px; color: var(--text-muted); font-weight: 500;">5 000 FCFA · Accès immédiat · Fahaldine 🐆</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Fahaldine — Stratège Business & IA · Parakou, Bénin</p>
+  <p style="margin-top: 8px;">
+    <a href="https://fahaldine.mychariow.shop/prd_wp3l9m/checkout">Boutique</a> · 
+    WhatsApp : +229 65 26 95 95
+  </p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(r => observer.observe(r));
+
+  // Sticky header scroll effect
+  const stickyHeader = document.getElementById('stickyHeader');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) stickyHeader.classList.add('scrolled');
+    else stickyHeader.classList.remove('scrolled');
+  });
+
+  // Sticky bottom bar
+  const stickyBar = document.getElementById('stickyBar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 600) stickyBar.classList.add('show');
+    else stickyBar.classList.remove('show');
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
